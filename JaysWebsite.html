@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Jacob Garshong · Engineer & Writer</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ========== PREMIUM CONFIGURATION & DESIGN SYSTEM ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    :root {
+      --bg-deep: #07090e;
+      --bg-radial: radial-gradient(circle at 50% -20%, #131a30 0%, #07090e 70%);
+      --surface: rgba(13, 17, 28, 0.45);
+      --surface-hover: rgba(20, 26, 42, 0.65);
+      --border-subtle: rgba(255, 255, 255, 0.04);
+      --border-active: rgba(59, 130, 246, 0.35);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --accent-soft: #60a5fa;
+      --card-radius: 1.25rem;
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    ::selection {
+      background: rgba(59, 130, 246, 0.25);
+      color: var(--text-primary);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-deep);
+      background-image: var(--bg-radial);
+      color: var(--text-primary);
+      line-height: 1.65;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Ambient Interactive Elements */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.004) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.004) 1px, transparent 1px);
+      background-size: 100px 100px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Header & Navigation Architecture */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: var(--transition-smooth);
+      padding: 0.5rem 0.2rem;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after, 
+    .nav-links a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    /* Section Foundations */
+    .page-section {
+      padding: 5rem 0;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Layout Section */
+    .hero {
+      padding: 4rem 0 3rem;
+      max-width: 800px;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      color: var(--accent-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.8rem;
+      background: linear-gradient(135deg, #ffffff 30%, #64748b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-quote {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      border-left: 2px solid var(--accent);
+      padding-left: 1.75rem;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    /* Asymmetric Premium Card Interfaces */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin: 4rem 0;
+    }
+
+    .service-card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 2.5rem;
+      transition: var(--transition-smooth);
+    }
+
+    .service-card:hover {
+      border-color: var(--border-active);
+      background: var(--surface-hover);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      font-size: 1.75rem;
+      color: var(--accent-soft);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    .service-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      background: var(--text-primary);
+      color: var(--bg-deep);
+      padding: 0.75rem 1.75rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Content Stream Feeds */
+    .recent-section {
+      margin: 6rem 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    /* Advanced Functional Cards */
+    .project-card, .thought-card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition-smooth);
+    }
+
+    .project-card:hover, .thought-card:hover {
+      border-color: var(--border-active);
+      background: var(--surface-hover);
+      transform: translateY(-4px);
+    }
+
+    .project-card h3, .thought-card h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project-card p, .thought-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+
+    .tech-stack {
+      font-size: 0.8rem;
+      font-family: monospace;
+      color: var(--accent-soft);
+      margin-bottom: 1.25rem;
+    }
+
+    .project-link, .read-full-btn {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .project-link:hover, .read-full-btn:hover {
+      color: var(--accent-soft);
+    }
+
+    .view-all-btn {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+    }
+
+    .view-all-btn:hover {
+      color: var(--text-primary);
+    }
+
+    /* Thought Library Visual Elements */
+    .writing-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .writing-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .writing-header p {
+      color: var(--text-secondary);
+    }
+
+    .quotes-grid {
+      border-left: 2px solid rgba(255, 255, 255, 0.05);
+      padding-left: 2rem;
+      margin: 4rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .quote-item {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .thought-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Core Admin Identity & Interface Layouts */
+    .admin-login-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 3rem;
+      max-width: 440px;
+      margin: 4rem auto;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+
+    .admin-login-panel h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="url"],
+    textarea {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 0.75rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: var(--transition-smooth);
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper i {
+      position: absolute;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    button {
+      font-family: inherit;
+      background: var(--text-primary);
+      color: var(--bg-deep);
+      border: none;
+      padding: 0.85rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    .admin-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .admin-dashboard-box {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 2rem;
+    }
+
+    .admin-dashboard-box h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    /* Rich Editor */
+    .rich-editor-wrapper {
+      border: 1px solid var(--border-subtle);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid var(--border-subtle);
+      align-items: center;
+    }
+
+    .toolbar button {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+      border-radius: 0.4rem;
+    }
+
+    .toolbar button:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+    }
+
+    .content-editable {
+      min-height: 200px;
+      padding: 1.2rem;
+      color: var(--text-primary);
+      outline: none;
+      background: transparent;
+      overflow-y: auto;
+      font-size: 0.95rem;
+    }
+
+    .editor-stats {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-panel {
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .preview-panel h4 {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .preview-content {
+      padding: 1rem;
+      background: rgba(255,255,255,0.01);
+      border-radius: 0.5rem;
+      min-height: 50px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* About Panel */
+    .about-panel-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.002) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 4.5rem 3.5rem;
+      margin: 6rem 0 2rem;
+    }
+
+    .about-panel-section p {
+      color: var(--text-secondary);
+      margin-top: 1rem;
+      max-width: 800px;
+    }
+
+    .social-chips {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .social-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 9, 14, 0.8);
+      backdrop-filter: blur(16px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding: 2rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-container {
+      background: #0d111c;
+      border: 1px solid rgba(255,255,255,0.08);
+      max-width: 700px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: var(--card-radius);
+      padding: 3.5rem;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: translateY(0);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: var(--text-primary);
+    }
+
+    #modalTitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    #modalDate {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    #modalContent {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-size: 1.05rem;
+    }
+    
+    #modalContent p {
+      margin-bottom: 1.25rem;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .admin-actions button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+      border-radius: 0.5rem;
+    }
+
+    .edit-btn { background: rgba(59, 130, 246, 0.15); color: var(--accent-soft); }
+    .delete-btn { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      background: rgba(255,255,255,0.01);
+      border: 1px dashed rgba(255,255,255,0.04);
+      border-radius: 1rem;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 5rem 2rem;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      .admin-two-col { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 3rem; }
+    }
+
+    @media (max-width: 640px) {
+      nav { flex-direction: column; gap: 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      .modal-container { padding: 2rem; }
+      #modalTitle { font-size: 1.8rem; }
+      .about-panel-section { padding: 2.5rem 1.75rem; }
+      .grid-3 { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="grid-overlay"></div>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo" data-section="homeSection">Stay Curious</a>
+      <ul class="nav-links">
+        <li><a href="#" data-section="homeSection" class="active">Home</a></li>
+        <li><a href="#" data-section="projectsSection">Projects</a></li>
+        <li><a href="#" data-section="writingSection">Writing</a></li>
+        <li><a href="#" data-section="adminSection">Admin</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section id="homeSection" class="page-section">
+    <div class="hero">
+      <div class="hero-tagline">Engineer · Learner · Writer</div>
+      <h1>Jacob Garshong</h1>
+      <div class="hero-quote">Writing is the quiet craft of making tomorrow remember today.</div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-microchip"></i></div>
+        <h3>Engineering</h3>
+        <p>I am fascinated by the process of taking a problem apart, 
+          understanding its underlying principles and building a solution from the ground up. 
+          For me, engineering is not just about creating new technology, it is about creating things that matter.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-pen-fancy"></i></div>
+        <h3>Writing</h3>
+        <p>Through essays, commentaries, and reflections, I explore the questions that shape individuals and societies, 
+          sometimes toward insight, sometimes toward more questions, but always toward understanding.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-chalkboard-user"></i></div>
+        <h3>Teaching & Mentorship</h3>
+        <p>For me, teaching is a natural extension of curiosity. 
+          Sharing knowledge goes beyond distributing information; 
+          it is a collaborative exchange that challenges me to think deeper. 
+          I find immense fulfillment in guiding others, 
+          knowing that every individual breakthrough helps elevate the broader community.</p>
+      </div>
+    </div>
+
+    <div class="recent-section">
+      <div class="section-title">Recent projects</div>
+      <div id="recentProjectsGrid" class="grid-3">
+        <div class="empty-state">Loading projects...</div>
+      </div>
+      <a href="#" data-target="projectsSection" class="view-all-btn">Explore all projects →</a>
+    </div>
+
+    <div class="recent-section">
+      <div class="section-title">Recent writings</div>
+      <div id="recentThoughtsList" class="grid-3">
+        <div class="empty-state">Loading thought pieces...</div>
+      </div>
+      <a href="#" data-target="writingSection" class="view-all-btn">Read full library →</a>
+    </div>
+
+    <div class="about-panel-section">
+      <div class="section-title"><i class="far fa-user-circle"></i> About me</div>
+      <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.75;">
+        I am driven by a simple belief: understanding matters. 
+        As an engineer, writer, and educator, I spend my time exploring ideas, solving problems, and sharing knowledge. 
+        I am guided by a deep curiosity about the world and a commitment to lifelong learning.
+      </p>
+      <div class="social-chips">
+        <div class="social-chip"><i class="fab fa-github"></i> <span>JayGarshong</span></div>
+        <div class="social-chip"><i class="fab fa-x-twitter"></i> <span>X: @_GhanaMan</span></div>
+        <div class="social-chip"><i class="fas fa-envelope"></i> <span>garshongjacob710@gmail.com</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projectsSection" class="page-section hidden">
+    <div class="section-title"><i class="fas fa-code-branch"></i> All projects</div>
+    <div id="allProjectsGrid" class="grid-3">
+      <div class="empty-state">Fetching projects...</div>
+    </div>
+  </section>
+
+  <section id="writingSection" class="page-section hidden">
+    <div class="writing-header">
+      <h2>Thoughts</h2>
+      <p>Essays, reflections & notes — written with clarity and systemic depth</p>
+    </div>
+    <div class="quotes-grid">
+      <div class="quote-item">“Every great change begins as words on a page, for history often follows where ink first dares to lead.”</div>
+      <div class="quote-item">“The world changes because someone chose to write, and the world remembers because someone took time to record it.”</div>
+    </div>
+    <div class="section-title">All thought pieces</div>
+    <div id="allThoughtsList" class="grid-3">
+      <div class="empty-state">Loading writings...</div>
+    </div>
+  </section>
+
+  <section id="adminSection" class="page-section hidden">
+    <div class="section-title">Content Studio</div>
+    
+    <div id="adminLoginPanel" class="admin-login-panel">
+      <h3>Admin Access</h3>
+      <div class="form-group">
+        <input type="email" id="adminEmail" placeholder="Email address">
+      </div>
+      <div class="form-group password-wrapper">
+        <input type="password" id="adminPassword" placeholder="Password">
+        <i class="far fa-eye-slash" id="togglePassword"></i>
+      </div>
+      <button id="loginBtn" style="width: 100%;">Login →</button>
+    </div>
+
+    <div id="adminDashboard" style="display: none;">
+      <div class="admin-two-col">
+        <div class="admin-dashboard-box">
+          <h3 id="projectFormTitle">➕ Add new project</h3>
+          <div class="form-group"><input type="text" id="projTitle" placeholder="Project title"></div>
+          <div class="form-group"><textarea id="projDesc" rows="3" placeholder="Short description"></textarea></div>
+          <div class="form-group"><input type="text" id="projTech" placeholder="Tech stack (e.g. React, C++)"></div>
+          <div class="form-group"><input type="url" id="projLink" placeholder="Project URL"></div>
+          <button id="publishProjectBtn" style="width: 100%;">Publish project</button>
+        </div>
+
+        <div class="admin-dashboard-box">
+          <h3 id="thoughtFormTitle">✍️ Write a thought piece</h3>
+          <div class="form-group"><input type="text" id="thoughtTitle" placeholder="Title"></div>
+          <div class="form-group"><input type="text" id="thoughtExcerpt" placeholder="Short excerpt sentence"></div>
+          
+          <div class="rich-editor-wrapper">
+            <div class="toolbar" id="toolbar">
+              <button type="button" class="toolbar-cmd" data-command="bold"><i class="fas fa-bold"></i></button>
+              <button type="button" class="toolbar-cmd" data-command="italic"><i class="fas fa-italic"></i></button>
+              <button type="button" class="toolbar-cmd" data-command="underline"><i class="fas fa-underline"></i></button>
+            </div>
+            <div id="thoughtContentEditable" class="content-editable" contenteditable="true" placeholder="Write your essay thoughts here..."></div>
+          </div>
+          
+          <div class="editor-stats" id="editorStats">Words: 0 | Characters: 0 | Reading time: 0 min</div>
+          
+          <div class="preview-panel">
+            <h4>📄 Live Engine Preview</h4>
+            <div id="livePreview" class="preview-content"></div>
+          </div>
+          <button id="publishThoughtBtn" style="margin-top:1.5rem; width:100%;">Publish essay</button>
+        </div>
+      </div>
+      <button id="logoutBtn" style="background:#1e293b; color: #f8fafc; margin-top:2rem;">Logout Session</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Jacob Garshong — engineer, writer, creator. <br>© 2026 · built with intention</p>
+</footer>
+
+<div id="thoughtModal" class="modal-overlay">
+  <div class="modal-container">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <div id="modalDate"></div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, orderBy, query, serverTimestamp, limit, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4HJR1QO0ZZb9I5a9WBf3snSNZbqEzEwU",
+    authDomain: "garshong-portfolio-website.firebaseapp.com",
+    projectId: "garshong-portfolio-website",
+    storageBucket: "garshong-portfolio-website.firebasestorage.app",
+    messagingSenderId: "724104493442",
+    appId: "1:724104493442:web:085b1f0305550910a1b79b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const projectsRef = collection(db, "projects");
+  const thoughtsRef = collection(db, "thoughts");
+  
+  let currentUser = null;
+  let editingProjectId = null;
+  let editingThoughtId = null;
+
+  function escapeHtml(str) { 
+    if(!str) return ''; 
+    return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); 
+  }
+
+  function parseMarkdown(text) {
+    if (!text) return '';
+    let html = escapeHtml(text);
+    html = html.split(/\n\n+/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    return html;
+  }
+
+  // ----- Defensive date formatter -----
+  function formatDate(timestamp) {
+    if (!timestamp) return 'Recent';
+    try {
+      let date = (typeof timestamp.toDate === 'function') ? timestamp.toDate() : new Date(timestamp);
+      if (isNaN(date.getTime())) return 'Recent';
+      return date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    } catch {
+      return 'Recent';
+    }
+  }
+
+  // ================================================================
+  //  ★ FIX: Data loading is now independent of authentication ★
+  //  loadData() is called immediately and again after auth changes
+  // ================================================================
+
+  async function loadRecentProjects() {
+    try {
+      const q = query(projectsRef, orderBy("createdAt", "desc"), limit(3));
+      const snap = await getDocs(q);
+      const container = document.getElementById('recentProjectsGrid');
+      if (snap.empty) { container.innerHTML = '<div class="empty-state">No projects cataloged yet.</div>'; return; }
+      let html = '';
+      snap.forEach(docSnap => {
+        const p = docSnap.data();
+        html += `<div class="project-card">
+          <div>
+            <h3>${escapeHtml(p.title)}</h3>
+            <p>${escapeHtml(p.description)}</p>
+          </div>
+          <div>
+            ${p.tech ? `<div class="tech-stack"><i class="fas fa-microchip"></i> ${escapeHtml(p.tech)}</div>` : ''}
+            ${p.link ? `<a href="${escapeHtml(p.link)}" target="_blank" class="project-link">View project <i class="fas fa-arrow-right"></i></a>` : ''}
+          </div>
+        </div>`;
+      });
+      container.innerHTML = html;
+    } catch(e) { 
+      console.error(e);
+      document.getElementById('recentProjectsGrid').innerHTML = '<div class="empty-state">⚠️ Failed to load projects.</div>';
+    }
+  }
+
+  async function loadAllProjects() {
+    try {
+      const q = query(projectsRef, orderBy("createdAt", "desc"));
+      const snap = await getDocs(q);
+      const container = document.getElementById('allProjectsGrid');
+      if (snap.empty) { container.innerHTML = '<div class="empty-state">No projects found.</div>'; return; }
+      let html = '';
+      snap.forEach(docSnap => {
+        const p = docSnap.data(); const id = docSnap.id;
+        html += `<div class="project-card">
+          <div>
+            <h3>${escapeHtml(p.title)}</h3>
+            <p>${escapeHtml(p.description)}</p>
+          </div>
+          <div>
+            ${p.tech ? `<div class="tech-stack"><i class="fas fa-cube"></i> ${escapeHtml(p.tech)}</div>` : ''}
+            ${p.link ? `<a href="${escapeHtml(p.link)}" target="_blank" class="project-link">Live project <i class="fas fa-external-link-alt"></i></a>` : ''}
+            ${currentUser ? `<div class="admin-actions">
+              <button class="edit-btn" data-id="${id}"><i class="fas fa-edit"></i> Edit</button>
+              <button class="delete-btn" data-id="${id}"><i class="fas fa-trash"></i> Delete</button>
+            </div>` : ''}
+          </div>
+        </div>`;
+      });
+      container.innerHTML = html;
+      container.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', () => editProjectById(btn.dataset.id)));
+      container.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', () => deleteProjectById(btn.dataset.id)));
+    } catch(e) { 
+      console.error(e);
+      document.getElementById('allProjectsGrid').innerHTML = '<div class="empty-state">⚠️ Failed to load projects.</div>';
+    }
+  }
+
+  async function loadRecentThoughts() {
+    try {
+      const q = query(thoughtsRef, orderBy("createdAt", "desc"), limit(3));
+      const snap = await getDocs(q);
+      const container = document.getElementById('recentThoughtsList');
+      if (snap.empty) { container.innerHTML = '<div class="empty-state">No recent articles published.</div>'; return; }
+      let html = '';
+      snap.forEach(docSnap => {
+        const t = docSnap.data();
+        const id = docSnap.id;
+        const date = formatDate(t.createdAt);
+        html += `<div class="thought-card">
+          <div>
+            <div class="thought-meta"><i class="far fa-calendar-alt"></i> ${date}</div>
+            <h3>${escapeHtml(t.title)}</h3>
+            <p>${escapeHtml(t.excerpt || 'Read the full thought essay inside...')}</p>
+          </div>
+          <button class="read-full-btn" data-id="${id}">Read more <i class="fas fa-arrow-right"></i></button>
+        </div>`;
+      });
+      container.innerHTML = html;
+      attachThoughtModalEvents(container);
+    } catch(e) { 
+      console.error(e);
+      document.getElementById('recentThoughtsList').innerHTML = '<div class="empty-state">⚠️ Failed to load essays.</div>';
+    }
+  }
+
+  async function loadAllThoughts() {
+    try {
+      const q = query(thoughtsRef, orderBy("createdAt", "desc"));
+      const snap = await getDocs(q);
+      const container = document.getElementById('allThoughtsList');
+      if (snap.empty) { container.innerHTML = '<div class="empty-state">Library content empty.</div>'; return; }
+      let html = '';
+      snap.forEach(docSnap => {
+        const t = docSnap.data(); const id = docSnap.id;
+        const date = formatDate(t.createdAt);
+        html += `<div class="thought-card">
+          <div>
+            <div class="thought-meta"><i class="far fa-calendar-alt"></i> ${date}</div>
+            <h3>${escapeHtml(t.title)}</h3>
+            <p>${escapeHtml(t.excerpt || 'Read the full essay inside.')}</p>
+          </div>
+          <div>
+            <button class="read-full-btn" data-id="${id}">Read details <i class="fas fa-chevron-right"></i></button>
+            ${currentUser ? `<div class="admin-actions">
+              <button class="edit-btn" data-id="${id}"><i class="fas fa-edit"></i> Edit</button>
+              <button class="delete-btn" data-id="${id}"><i class="fas fa-trash"></i> Delete</button>
+            </div>` : ''}
+          </div>
+        </div>`;
+      });
+      container.innerHTML = html;
+      attachThoughtModalEvents(container);
+      container.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', () => editThoughtById(btn.dataset.id)));
+      container.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', () => deleteThoughtById(btn.dataset.id)));
+    } catch(e) { 
+      console.error(e);
+      document.getElementById('allThoughtsList').innerHTML = '<div class="empty-state">⚠️ Failed to load essays.</div>';
+    }
+  }
+
+  function attachThoughtModalEvents(parent) {
+    parent.querySelectorAll('.read-full-btn').forEach(btn => {
+      btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        const id = btn.dataset.id;
+        if (id) openThoughtModal(id);
+      });
+    });
+  }
+
+  // Modal open / close
+  async function openThoughtModal(thoughtId) {
+    if (!thoughtId) return;
+    const modal = document.getElementById('thoughtModal');
+    const titleEl = document.getElementById('modalTitle');
+    const dateEl = document.getElementById('modalDate');
+    const contentEl = document.getElementById('modalContent');
+
+    titleEl.innerText = 'Loading...';
+    dateEl.innerText = '';
+    contentEl.innerHTML = '<p style="color: var(--text-muted);">Fetching essay...</p>';
+    modal.classList.add('active');
+
+    try {
+      const docRef = doc(db, 'thoughts', thoughtId);
+      const docSnap = await getDoc(docRef);
+
+      if (!docSnap.exists()) {
+        contentEl.innerHTML = '<p style="color: #ef4444;">Sorry, this essay could not be found.</p>';
+        return;
+      }
+
+      const data = docSnap.data();
+      titleEl.innerText = data.title || 'Untitled';
+      dateEl.innerText = formatDate(data.createdAt);
+      contentEl.innerHTML = parseMarkdown(data.content || '');
+    } catch (err) {
+      console.error('Failed to load thought:', err);
+      contentEl.innerHTML = '<p style="color: #ef4444;">Failed to load the essay. Please try again.</p>';
+    }
+  }
+
+  document.getElementById('closeModalBtn').addEventListener('click', () => {
+    document.getElementById('thoughtModal').classList.remove('active');
+  });
+  document.getElementById('thoughtModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('thoughtModal')) {
+      document.getElementById('thoughtModal').classList.remove('active');
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') document.getElementById('thoughtModal').classList.remove('active');
+  });
+
+  // View Switcher
+  document.querySelectorAll('[data-section]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.dataset.section;
+      document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+      document.getElementById(target).classList.remove('hidden');
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const navBtn = document.querySelector(`.nav-links a[data-section="${target}"]`);
+      if(navBtn) navBtn.classList.add('active');
+      window.scrollTo(0,0);
+    });
+  });
+
+  document.querySelectorAll('[data-target]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.dataset.target;
+      document.querySelector(`.nav-links a[data-section="${target}"]`)?.click();
+    });
+  });
+
+  // Background Canvas
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let dots = [];
+  function resize() {
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize); resize();
+
+  for(let i=0; i<35; i++) {
+    dots.push({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      r: Math.random() * 2 + 1, dx: (Math.random() - 0.5) * 0.3, dy: (Math.random() - 0.5) * 0.3
+    });
+  }
+  function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = 'rgba(96, 165, 250, 0.35)';
+    dots.forEach(d => {
+      ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI*2); ctx.fill();
+      d.x += d.dx; d.y += d.dy;
+      if(d.x < 0 || d.x > canvas.width) d.dx *= -1;
+      if(d.y < 0 || d.y > canvas.height) d.dy *= -1;
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  /* ==========================================
+     AUTHENTICATION ENGINE (does not block data)
+     ========================================== */
+  const emailInput = document.getElementById('adminEmail');
+  const passwordInput = document.getElementById('adminPassword');
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const togglePassword = document.getElementById('togglePassword');
+  const adminLoginPanel = document.getElementById('adminLoginPanel');
+  const adminDashboard = document.getElementById('adminDashboard');
+
+  togglePassword.addEventListener('click', () => {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    togglePassword.classList.toggle('fa-eye');
+    togglePassword.classList.toggle('fa-eye-slash');
+  });
+
+  async function handleLogin() {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    if (!email || !password) {
+      alert('Please fill in both fields.');
+      return;
+    }
+    loginBtn.disabled = true;
+    loginBtn.innerText = 'Verifying Authenticity...';
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      emailInput.value = '';
+      passwordInput.value = '';
+    } catch (error) {
+      console.error("Auth Error details:", error.code);
+      switch(error.code) {
+        case 'auth/invalid-credential':
+        case 'auth/wrong-password':
+        case 'auth/user-not-found':
+          alert('Invalid administrative credentials. Access denied.');
+          break;
+        case 'auth/invalid-email':
+          alert('Please input a properly formatted email structure.');
+          break;
+        case 'auth/too-many-requests':
+          alert('Account briefly locked due to consecutive failures. Try again shortly.');
+          break;
+        default:
+          alert(`Authentication failed: ${error.message}`);
+      }
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.innerText = 'Login →';
+    }
+  }
+
+  loginBtn.addEventListener('click', handleLogin);
+  [emailInput, passwordInput].forEach(el => {
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleLogin();
+    });
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    try { await signOut(auth); }
+    catch (error) { console.error("Logout Error:", error); }
+  });
+
+  // ★ Auth state change: only toggles admin UI, then reloads data (for admin buttons) ★
+  onAuthStateChanged(auth, user => {
+    currentUser = user;
+    if (user) {
+      adminLoginPanel.style.display = 'none';
+      adminDashboard.style.display = 'block';
+    } else {
+      adminLoginPanel.style.display = 'block';
+      adminDashboard.style.display = 'none';
+    }
+    // Reload data to show/hide admin buttons (edit/delete)
+    loadRecentProjects();
+    loadAllProjects();
+    loadRecentThoughts();
+    loadAllThoughts();
+  });
+
+  // ★ CRITICAL: Load data immediately, don't wait for auth ★
+  loadRecentProjects();
+  loadAllProjects();
+  loadRecentThoughts();
+  loadAllThoughts();
+
+  // ==============================================================
+  //  PUBLISH BUTTONS
+  // ==============================================================
+
+  document.getElementById('publishProjectBtn').addEventListener('click', async () => {
+    const title = document.getElementById('projTitle').value.trim();
+    const description = document.getElementById('projDesc').value.trim();
+    const tech = document.getElementById('projTech').value.trim();
+    const link = document.getElementById('projLink').value.trim();
+    if (!title || !description) {
+      alert('Please fill in at least a title and description.');
+      return;
+    }
+    const btn = document.getElementById('publishProjectBtn');
+    btn.disabled = true;
+    btn.innerText = 'Publishing...';
+    try {
+      await addDoc(projectsRef, { title, description, tech, link, createdAt: serverTimestamp() });
+      document.getElementById('projTitle').value = '';
+      document.getElementById('projDesc').value = '';
+      document.getElementById('projTech').value = '';
+      document.getElementById('projLink').value = '';
+      alert('Project published successfully!');
+      loadRecentProjects();
+      loadAllProjects();
+    } catch (e) {
+      console.error(e);
+      alert('Failed to publish project.');
+    } finally {
+      btn.disabled = false;
+      btn.innerText = 'Publish project';
+    }
+  });
+
+  document.getElementById('publishThoughtBtn').addEventListener('click', async () => {
+    const title = document.getElementById('thoughtTitle').value.trim();
+    const excerpt = document.getElementById('thoughtExcerpt').value.trim();
+    const content = document.getElementById('thoughtContentEditable').innerText.trim();
+    if (!title || !content) {
+      alert('Please fill in at least a title and content.');
+      return;
+    }
+    const btn = document.getElementById('publishThoughtBtn');
+    btn.disabled = true;
+    btn.innerText = 'Publishing...';
+    try {
+      await addDoc(thoughtsRef, { title, excerpt, content, createdAt: serverTimestamp() });
+      document.getElementById('thoughtTitle').value = '';
+      document.getElementById('thoughtExcerpt').value = '';
+      document.getElementById('thoughtContentEditable').innerText = '';
+      alert('Essay published successfully!');
+      loadRecentThoughts();
+      loadAllThoughts();
+    } catch (e) {
+      console.error(e);
+      alert('Failed to publish essay.');
+    } finally {
+      btn.disabled = false;
+      btn.innerText = 'Publish essay';
+    }
+  });
+
+  // ==============================================================
+  //  EDIT / DELETE STUBS (keep existing)
+  // ==============================================================
+  async function editProjectById(id) {
+    alert('Edit functionality: implement as needed. ID: ' + id);
+  }
+  async function deleteProjectById(id) {
+    if (!confirm('Delete this project?')) return;
+    try {
+      await deleteDoc(doc(db, 'projects', id));
+      loadAllProjects();
+      loadRecentProjects();
+    } catch (e) { console.error(e); }
+  }
+  async function editThoughtById(id) {
+    alert('Edit functionality: implement as needed. ID: ' + id);
+  }
+  async function deleteThoughtById(id) {
+    if (!confirm('Delete this essay?')) return;
+    try {
+      await deleteDoc(doc(db, 'thoughts', id));
+      loadAllThoughts();
+      loadRecentThoughts();
+    } catch (e) { console.error(e); }
+  }
+
+  // ==============================================================
+  //  TOOLBAR, LIVE PREVIEW & STATS
+  // ==============================================================
+  document.querySelectorAll('.toolbar-cmd').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cmd = btn.dataset.command;
+      document.execCommand(cmd, false, null);
+      document.getElementById('thoughtContentEditable').focus();
+    });
+  });
+
+  const editable = document.getElementById('thoughtContentEditable');
+  const previewEl = document.getElementById('livePreview');
+  const statsEl = document.getElementById('editorStats');
+
+  function updatePreviewAndStats() {
+    const text = editable.innerText || '';
+    previewEl.innerHTML = parseMarkdown(text) || '<span style="color: var(--text-muted);">Your essay will appear here…</span>';
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const chars = text.length;
+    const readingTime = Math.max(1, Math.round(words / 200));
+    statsEl.innerText = `Words: ${words} | Characters: ${chars} | Reading time: ${readingTime} min`;
+  }
+
+  editable.addEventListener('input', updatePreviewAndStats);
+  updatePreviewAndStats();
+</script>
+</body>
+</html>
